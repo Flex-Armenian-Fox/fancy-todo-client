@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/budigk/fancy-todo-client/issues"
   },
-  "homepage": "https://github.com/budigk/fancy-todo-client#readme"
+  "homepage": "https://github.com/budigk/fancy-todo-client#readme",
+  "dependencies": {
+    "sweetalert": "^2.1.2"
+  }
 }

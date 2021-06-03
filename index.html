@@ -47,7 +47,7 @@
     <!-- /.login-logo -->
     <div class="card">
       <div class="card-body login-card-body">
-        <p class="login-box-msg">Sign in to start your session</p>
+        <p id="label-login" class="login-box-msg">Sign in to start your session</p>
   
         <form id="login-form">
           <div class="input-group mb-3">
@@ -181,15 +181,14 @@
           <section class="col-lg-12 connectedSortable">
             <!-- TO DO List -->
             <div class="card">
-                <!-- /.card-body -->
-                <div class="card-footer clearfix">
-                  <button type="button" class="btn btn-info float-left"><i class="fas fa-plus"></i> Add item</button>
-                </div>
-                <!-- /.card-header -->
-                <div class="card-body">
-                    <ul class="todo-list" data-widget="todo-list">
-                        <li>
-                            <!-- drag handle -->
+              <!-- /.card-body -->
+              <div class="card-footer clearfix">
+                <button type="button" class="btn btn-info float-left"><i class="fas fa-plus"></i> Add item</button>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <ul id="list-todos" class="todo-list" data-widget="todo-list">
+                  <li>
                     <!-- checkbox -->
                     <div  class="icheck-primary d-inline ml-2">
                       <input type="checkbox" value="" name="todo1" id="todoCheck1">
@@ -200,8 +199,12 @@
                         <h4>Design a nice theme</h4>
                         <p>Description Detail</p>
                     </span>
+
+                    <div class="tools">
+                      <i class="fas fa-edit"></i>
+                      <i class="fas fa-trash"></i>
+                    </div>
                   </li>
-                  
                 </ul>
               </div>
             </div>
@@ -225,6 +228,7 @@
   src="https://code.jquery.com/jquery-3.6.0.min.js"
   integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
   crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <script> src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"</script>
   <!-- Toastr -->
   <script src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.2/js/toastr.min.js"></script>
