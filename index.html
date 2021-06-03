@@ -40,7 +40,7 @@
                         </div>
                         <div class="hidden sm:block sm:ml-6">
                             <div class="flex space-x-4">                                
-                                <a href="#" class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium"
+                                <a id="nav-dashboard" href="#" class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium"
                                     aria-current="page">Dashboard</a>
                                 <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" id="nav-logout">Logout</a>
                             </div>
@@ -89,8 +89,8 @@
                         </div> -->
     
                         <div class="text-sm">
-                            <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">
-                                Forgot your password?
+                            <a id="btn-register" href="#" class="font-medium text-indigo-600 hover:text-indigo-500">
+                                Don't Have Account? Sign Up Now
                             </a>
                         </div>
                     </div>
@@ -117,9 +117,28 @@
     </div>
     <!-- END LOGIN PAGE -->
 
+    <!-- START REGISTER PAGE -->
+    <div id="register-section" class="flex flex-col items-center justify-center w-screen h-screen bg-gray-200 text-gray-700">
+        <h1 class="font-bold text-2xl">Register Now</h1>
+        <form class="flex flex-col bg-white rounded shadow-lg p-12 mt-12" id="form-register">
+            <label class="font-semibold text-xs" for="usernameField">Email</label>
+            <input class="flex items-center h-12 px-4 w-64 bg-gray-200 mt-2 rounded focus:outline-none focus:ring-2"
+                type="email" id="register-email">
+            <label class="font-semibold text-xs mt-3" for="passwordField">Password</label>
+            <input class="flex items-center h-12 px-4 w-64 bg-gray-200 mt-2 rounded focus:outline-none focus:ring-2"
+                type="password" id="register-password">
+            <button
+                class="flex items-center justify-center h-12 px-6 w-64 bg-blue-600 mt-8 rounded font-semibold text-sm text-blue-100 hover:bg-blue-700">Register Now!</button>
+            <div class="flex mt-6 justify-center text-xs">                
+                <a id="btn-login" class="text-blue-400 hover:text-blue-500" href="#">Sign In Now</a>
+            </div>
+        </form>
+    </div>
+    <!-- END REGISTER PAGE -->
+
     <!-- START LIST TODO -->
     <div id="content-section">
-        <button id="toggle-modal" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
+        <button id="btn-add-todo" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
             <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z"/></svg>
             <span>Add New Todo</span>
         </button>
@@ -168,6 +187,49 @@
             </div>
         </div>
 
+        <div id="content-edit-section">
+            <div class=" flex items-center justify-center">        
+                <form id="form-edit-todo" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" style="width: 1000px;">
+                    <br>
+                    <h1 class="block text-gray-700 font-bold mb-2 text-xl text-center">Edit Todo</h1>
+                    <br>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="name">
+                            Title
+                        </label>
+                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            id="title-edit" type="text" required>
+                    </div>                                            
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="Date">
+                            Due Date
+                        </label>
+                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            id="due_date-edit" type="date" required>
+                    </div>                                 
+                    <div class="mb-4">        
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="name">
+                            Description
+                        </label>                        
+                        <textarea class="bshadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+                            id="description-edit" type="text" required></textarea>
+                    </div>                            
+                    <div class="flex items-center justify-between">
+                        <button id="btn-edit-todo"
+                            class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                            type="submit">
+                            Edit Todo
+                        </button>
+                        <button id="btn-edit-cancel-todo"
+                            class="bg-red-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                            type="button">
+                            Cancel
+                        </button>
+                    </div>                                             
+                </form>                
+            </div>
+        </div>
+
         <div id="content-data-section">
             <div class="flex flex-col">
                 <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -198,8 +260,12 @@
                                         </th>                                    
                                         <th scope="col"
                                             class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            Action
-                                        </th>                                    
+                                            Todo Action
+                                        </th>
+                                        <th scope="col"
+                                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Status Action
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody class="bg-white divide-y divide-gray-200">                                
