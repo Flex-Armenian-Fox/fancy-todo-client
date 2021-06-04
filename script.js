@@ -131,7 +131,7 @@ function fetchData() {
         }
     })
     .done(response => {
-        let number = 0;
+        // let number = 0;
 
         if (!response.length) {
             $("#content-section tbody").append(`
@@ -141,8 +141,8 @@ function fetchData() {
             `)
         }        
 
-        response.forEach(el => {
-            number++;
+        response.forEach((el, idx) => {
+            // number++;
             const { id, due_date, title, description, status } = el;
             let bgColor = "green";
             let holiday = "";
@@ -176,7 +176,7 @@ function fetchData() {
             $("#content-section tbody").append(`
             <tr>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    ${number}.
+                    ${idx + 1}.
                 </td> 
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                     ${title}
@@ -362,4 +362,23 @@ function createNewTodo() {
 function logout() {
     localStorage.clear();
     checkLogin();
+}
+
+function onSignIn(googleUser) {
+    var profile = googleUser.getBasicProfile();    
+    console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+    console.log('Name: ' + profile.getName());
+    console.log('Image URL: ' + profile.getImageUrl());
+    console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+}
+
+function renderButton() {
+    gapi.signin2.render('google-signin', {
+        'scope': 'profile email',
+        'width': 450,
+        'height': 40,
+        'longtitle': true,
+        'theme': 'dark',
+        'onsuccess': onSignIn
+    })
 }

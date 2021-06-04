@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">    
+    <meta name="google-signin-client_id" content="265426479351-d8l61mq1hfqk44pnsd3b94mqvqrh7283.apps.googleusercontent.com">
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body>    
@@ -80,14 +81,6 @@
                     </div>
     
                     <div class="flex items-center justify-between">
-                        <!-- <div class="flex items-center">
-                            <input id="remember_me" name="remember_me" type="checkbox"
-                                class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
-                            <label for="remember_me" class="ml-2 block text-sm text-gray-900">
-                                Remember me
-                            </label>
-                        </div> -->
-    
                         <div class="text-sm">
                             <a id="btn-register" href="#" class="font-medium text-indigo-600 hover:text-indigo-500">
                                 Don't Have Account? Sign Up Now
@@ -111,6 +104,8 @@
                             Sign in
                         </button>
                     </div>
+                    <hr class="my-6 border-gray-300 w-full">
+                    <div id="google-signin" data-onsuccess="onSignIn"></div>
                 </form>
             </div>
         </div>
@@ -282,5 +277,6 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="script.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
 </body>
 </html>
