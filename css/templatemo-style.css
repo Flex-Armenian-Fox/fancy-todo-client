@@ -271,6 +271,14 @@ iframe {
     box-shadow: 0 0 0 0.2rem #cccccc14;
 }
 
+.g-signin2{
+    width: 100%;
+  }
+  
+.g-signin2 > div{
+    margin: 0 auto;
+  }
+
 input,
 textarea,
 [contenteditable] {

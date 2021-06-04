@@ -1,7 +1,7 @@
 const SERVER = "http://localhost:3000"
 
 $(document).ready(() => {
-    console.log("masuk")
+    console.log("Loading Page")
     auth()
 })
 
@@ -64,7 +64,6 @@ const getTodos = () =>{
         url: SERVER + "/todos",
         headers: {access_token: localStorage.access_token}
     }) .done(res => {
-        console.log(res)
         res.data.forEach(el =>{
             let dueDate = new Date(el.due_date)
             dueDate = dueDate.toDateString()
@@ -103,7 +102,6 @@ const getTodos = () =>{
             </div> 
             `);
         })
-        console.log(res)
     }) .fail(err => {
         console.log(err)
     })
@@ -124,7 +122,6 @@ const delTodo = (id) => {
 }
 
 const postTodo = () =>{
-    console.log("test")
     $.ajax({
         type: "POST",
         url: SERVER + "/todos/",
@@ -148,7 +145,6 @@ const postTodo = () =>{
 }
 
 const editForm = (id) =>  {
-    console.log("masuk")
     $("#todo-form-container").show()
     $("#timeline-container").hide()
     $("#post-btn").hide()
@@ -162,21 +158,18 @@ const editForm = (id) =>  {
             access_token: localStorage.access_token
         }
     }) .done(res =>{
-        console.log(res.due_date)
         let dueDate = new Date(res.due_date)
         dueDate = dueDate.toISOString().slice(0,10)
         $(`#form-title`).val(res.title)
         $(`#form-desc`).val(res.description)
         $(`#form-stat`).val(res.status)
         $(`#form-date`).val(dueDate)
-
     }) .fail(err =>{
         console.log(err)
     })
 }
 
 const postEdit = (id) => {
-    console.log(`post edit`)
     $.ajax({
         type: "PUT",
         url: SERVER + `/todos/${id}`,
@@ -257,6 +250,10 @@ const postPatch = (id) =>{
 
 const logout = () =>{
     localStorage.removeItem("access_token");
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+      console.log('User signed out.');
+    });
     auth();
 }
 
@@ -288,3 +285,18 @@ const getAdd = () =>{
     $("#timeline-container").hide()
     $("#form-type").text("Add Todos")
 }
+
+function onSignIn(googleUser) {
+    var id_token = googleUser.getAuthResponse().id_token;
+    $.ajax({
+        type: "POST",
+        url: SERVER + "/users/gauth",
+        data: { token: id_token }
+    }) .done(res =>{
+        localStorage.access_token = res.access_token
+        auth()
+    }) .fail(err =>{
+        console.log(err)
+    })
+  }
+  
