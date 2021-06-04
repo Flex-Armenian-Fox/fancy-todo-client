@@ -128,6 +128,10 @@ a.tm-text-white:focus {
     color: #99CC66;
 }
 
+.tm-text-red {
+    color: red;
+}
+
 .tm-text-cyan {
     color: #33CCCC;
 }
@@ -142,6 +146,10 @@ a.tm-text-white:focus {
 
 .tm-bg-dark {
     background-color: #262626;
+}
+
+.tm-bg-dark-red {
+    background-color: #302424;
 }
 
 .tm-bg-dark-light {
