@@ -72,6 +72,7 @@ function registerUser() {
     .done(() => {
         swal("Success", "Register New User Success", "success");
         checkLogin();
+        $("#form-login").trigger("reset");
     })
     .fail(error => {
         const { responseJSON } = error;
@@ -131,8 +132,6 @@ function fetchData() {
         }
     })
     .done(response => {
-        // let number = 0;
-
         if (!response.length) {
             $("#content-section tbody").append(`
             <tr>
@@ -141,8 +140,7 @@ function fetchData() {
             `)
         }        
 
-        response.forEach((el, idx) => {
-            // number++;
+        response.forEach((el, idx) => {            
             const { id, due_date, title, description, status } = el;
             let bgColor = "green";
             let holiday = "";
@@ -362,23 +360,86 @@ function createNewTodo() {
 function logout() {
     localStorage.clear();
     checkLogin();
+    googleSignOut();
+    facebookSignOut();
 }
 
-function onSignIn(googleUser) {
-    var profile = googleUser.getBasicProfile();    
-    console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-    console.log('Name: ' + profile.getName());
-    console.log('Image URL: ' + profile.getImageUrl());
-    console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+function googleSignIn(googleUser) {
+    const id_token = googleUser.getAuthResponse().id_token;
+    const payload = {
+        google_token: id_token
+    };
+
+    $.ajax({
+        type: "POST",
+        url: `${baseurl}/users/google-login`,
+        data: payload,        
+    })
+    .done(response => {
+        localStorage.setItem('access_token', response.access_token);
+        checkLogin();
+        $("#form-login").trigger("reset");
+    })
+    .fail(error => {
+        const { responseJSON } = error
+        swal("Error", responseJSON.message, "error")
+    });
 }
 
-function renderButton() {
+function renderGoogleSignIn() {
     gapi.signin2.render('google-signin', {
         'scope': 'profile email',
-        'width': 450,
+        'width': 400,
         'height': 40,
         'longtitle': true,
         'theme': 'dark',
-        'onsuccess': onSignIn
-    })
+        'onsuccess': googleSignIn
+    });
+}
+
+function googleSignOut() {
+    const auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(() => {
+        console.log("Signed Out");
+    });
+}
+
+function facebookStatusChangeCallback(response) {
+    if (response.status === 'connected') facebookSignIn();
+}
+
+function checkFacebookLogin() {
+    FB.getLoginStatus(response => {
+        facebookStatusChangeCallback(response);
+    });
+}
+
+function facebookSignIn() {
+    FB.api(
+        '/me',
+        'GET',
+        { "fields": "email,name" }, 
+        (fbResponse) => {
+            $.ajax({
+                type: "POST",
+                url: `${baseurl}/users/facebook-login`,
+                data: fbResponse
+            })
+            .done(response => {
+                localStorage.setItem('access_token', response.access_token);
+                checkLogin();
+                $("#form-login").trigger("reset");
+            })
+            .fail(error => {
+                const { responseJSON } = error;
+                swal("Error", responseJSON.message, "error");
+            })
+        }
+    );
+}
+
+function facebookSignOut() {    
+    FB.logout(function(response) {
+        console.log("Signed Out", response);
+    });
 }
