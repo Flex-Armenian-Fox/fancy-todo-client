@@ -23,6 +23,7 @@ $(document).ready(function(){
         $("#inputEmail").val(""),
         $("#inputPassword").val(""),
 
+        signOutGoogle();
         auth();
     })
 
@@ -120,7 +121,6 @@ function getTodosList() {
     .done(res => {
         $("#list-todos").empty();
 
-        console.log(res[0].title)
         res.forEach(todo => {
             $("#list-todos").append(`
                 <li>
@@ -359,3 +359,31 @@ function updateStatus(id){
 
     // console.log(id, $("#todoCheck" + id).val(), $("#todoCheck" + id).prop('checked'))
 }
+
+function onSignIn(googleUser) {
+    // var profile = googleUser.getBasicProfile();
+    // console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+    // console.log('Name: ' + profile.getName());
+    // console.log('Image URL: ' + profile.getImageUrl());
+    // console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+
+    var id_token = googleUser.getAuthResponse().id_token;
+    $.ajax({
+        type: "POST",
+        url: baseUrl + "/users/login-google",
+        data: {
+            id_token_google: id_token
+        }
+    })
+    .done(respon => {
+        localStorage.setItem("access_token", respon.access_token)
+        auth();
+    })
+  }
+
+  function signOutGoogle() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+      console.log('User signed out.');
+    });
+  }

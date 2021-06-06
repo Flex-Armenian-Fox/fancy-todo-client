@@ -26,6 +26,7 @@
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   <!-- Toast -->
   <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+  <meta name="google-signin-client_id" content="970984802322-qnpc6494qo6v595p2rmmhtoreoleemiu.apps.googleusercontent.com">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
@@ -67,15 +68,16 @@
             </div>
           </div>
           <div class="row">
+            <div class="g-signin2 col-8" data-onsuccess="onSignIn"></div>
+            <!-- /.col -->
+            <div class="col-4">
+              <button id="submit" type="submit" class="btn btn-primary btn-block">Sign In</button>
+            </div>
             <div class="col-8">
               <div class="icheck-primary">
                 <input type="checkbox" id="remember">
                 <a id="register" href="#" class="text-center">Register a new account</a>
               </div>
-            </div>
-            <!-- /.col -->
-            <div class="col-4">
-              <button id="submit" type="submit" class="btn btn-primary btn-block">Sign In</button>
             </div>
             <!-- /.col -->
           </div>
@@ -232,6 +234,7 @@
   <script> src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"</script>
   <!-- Toastr -->
   <script src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.2/js/toastr.min.js"></script>
-<script type="text/javascript" src="main.js"></script>
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <script type="text/javascript" src="main.js"></script>
 </body>
 </html>
