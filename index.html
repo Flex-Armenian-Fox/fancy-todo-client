@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- CLIENT ID – GOOGLE OAUTH -->
+    <meta name="google-signin-client_id" content="132379342138-uosinsruk7rotvhf54f8sp6lao98bm4n.apps.googleusercontent.com">
+    <!-- ------------------------ -->
+
     <link href="/tailwind.css" rel="stylesheet">
     <title>Fancy2Do</title>
 </head>
@@ -86,6 +91,16 @@
             </div>
           </form>
 
+          <div id="login-oauth-section">
+            
+            <p class="mt-2 text-center font-bold text-sm text-indigo-600">
+              Or sign in with one of these accounts:
+            </p>
+          </div>
+          <div class="flex items-center justify-center">
+            <div class="g-signin2" data-onsuccess="onSignIn"></div>
+          </div>
+          <!-- <a href="#" onclick="signOut();">Sign out</a> -->
         </div>
       </div>
       
@@ -193,7 +208,7 @@
                 <div class="md:grid md:grid-cols-3 md:gap-6">
                 <div class="md:col-span-1">
                     <div id="create-todo-sidebar" class="px-4 sm:px-0">
-                      <h3 class="text-lg font-medium leading-6 text-gray-900">To-do Details</h3>
+                      <h3 class="text-lg font-medium leading-6 text-indigo-700">To-do Details</h3>
                       <p class="mt-1 text-sm text-gray-600">
                           Your new todo will be displayed once you click 'Save'.
                       </p>
@@ -205,17 +220,17 @@
                         <div class="px-4 py-5 bg-white sm:p-6">
                         <div class="grid grid-cols-6 gap-6">
                             <div class="col-span-7 sm:col-span-4">
-                            <label for="new-todo-title" class="block text-sm font-medium text-gray-700">Title</label>
+                            <label for="new-todo-title" class="block text-sm font-medium text-indigo-700">Title</label>
                             <input type="text" name="new-todo-title" id="new-todo-title" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                             </div>
             
                             <div class="col-span-7 sm:col-span-4">
-                            <label for="new-todo-description" class="block text-sm font-medium text-gray-700">Description</label>
+                            <label for="new-todo-description" class="block text-sm font-medium text-indigo-700">Description</label>
                             <input type="text" name="new-todo-description" id="new-todo-description" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                             </div>
             
                             <div class="col-span-6 sm:col-span-3">
-                            <label for="new-todo-status" class="block text-sm font-medium text-gray-700">Status</label>
+                            <label for="new-todo-status" class="block text-sm font-medium text-indigo-700">Status</label>
                             <select id="new-todo-status" name="new-todo-status" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                 <option value="ongoing">Ongoing</option>
                                 <option value="completed">Completed</option>
@@ -223,7 +238,7 @@
                             </div>
             
                             <div class="col-span-6 sm:col-span-3 lg:col-span-2">
-                            <label for="new-todo-due-date" class="block text-sm font-medium text-gray-700">Due Date</label>
+                            <label for="new-todo-due-date" class="block text-sm font-medium text-indigo-700">Due Date</label>
                             <input type="date" name="new-todo-due-date" id="new-todo-due-date" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                             </div>
                         </div>
@@ -263,12 +278,16 @@
     </main>
 
     <!-- !!!!! ALL SCRIPTS BELOW !!!!! -->
+
     <!-- JQUERY SCRIPT -->
     <script
     src="https://code.jquery.com/jquery-3.6.0.min.js"
     integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
     crossorigin="anonymous"></script>
 
+    <!-- 3rd PARTY API - GOOGLE OAUTH - SCRIPT -->
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    
     <!-- JAVASCRIPT SCRIPT -->
     <script src="./script.js"></script>
 </body>

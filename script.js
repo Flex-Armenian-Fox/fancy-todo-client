@@ -46,18 +46,18 @@ $(document).ready(function() {
         $("#register-section").hide()
     })
 
-    // CANCEL – ADD TODO
+    // ADD NEW TODO – CANCEL
     $("#add-todo-cancel").on("click", (event) => {
         checkAuth()
     })
 
-    // SAVE – ADD TODO
+    // ADD NEW TODO – SAVE
     $("#add-todo-submit").on("click", (event) => {
         event.preventDefault()
         addNew()
     })
 
-    // CANCEL - EDIT TODO
+    // EDIT TODO – CANCEL
     $("#edit-todo-cancel").on("click", (event) => {
         checkAuth()
     })
@@ -155,7 +155,7 @@ function getTodos () {
                             </td>
       
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                              <a href="#" id="todo-ongoing-${response[i].id}" class="text-gray-600 hover:text-gray-900">Mark Ongoing</a>
+                              <a href="#" id="todo-ongoing-${response[i].id}" class="text-yellow-500 hover:text-yellow-600">Mark Ongoing</a>
                             </td>`
                             break
 
@@ -224,7 +224,7 @@ function editForm(todoId) {
                 <div class="md:grid md:grid-cols-3 md:gap-6">
                 <div class="md:col-span-1">
                     <div id="edit-todo-sidebar" class="px-4 sm:px-0">
-                      <h3 class="text-lg font-medium leading-6 text-gray-900">Edit Todo</h3>
+                      <h3 class="text-lg font-medium leading-6 text-indigo-700">Edit Todo</h3>
                       <p class="mt-1 text-sm text-gray-600">
                           Your edited todo will be displayed once you click 'Save'.
                       </p>
@@ -236,19 +236,19 @@ function editForm(todoId) {
                         <div class="px-4 py-5 bg-white sm:p-6">
                         <div class="grid grid-cols-6 gap-6">
                             <div class="col-span-7 sm:col-span-4">
-                            <label for="edit-todo-title" class="block text-sm font-medium text-gray-700">Title</label>
+                            <label for="edit-todo-title" class="block text-sm font-medium text-indigo-700">Title</label>
                             <input type="text" value="${response.todo.title}" name="edit-todo-title" id="edit-todo-title" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                             </div>
             
                             <div class="col-span-7 sm:col-span-4">
-                            <label for="edit-todo-description" class="block text-sm font-medium text-gray-700">Description</label>
+                            <label for="edit-todo-description" class="block text-sm font-medium text-indigo-700">Description</label>
                             <input type="text" value="${response.todo.description}" name="edit-todo-description" id="edit-todo-description" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                             </div>`
 
             if (response.todo.status === 'ongoing') {
                 editSyntax += `
                 <div class="col-span-6 sm:col-span-3">
-                    <label for="edit-todo-status" class="block text-sm font-medium text-gray-700">Status</label>
+                    <label for="edit-todo-status" class="block text-sm font-medium text-indigo-700">Status</label>
                     <select id="edit-todo-status" name="edit-todo-status" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                         <option selected value="ongoing">Ongoing</option>
                         <option value="completed">Completed</option>
@@ -258,7 +258,7 @@ function editForm(todoId) {
             } else if (response.todo.status === 'completed') {
                 editSyntax += `
                 <div class="col-span-6 sm:col-span-3">
-                    <label for="edit-todo-status" class="block text-sm font-medium text-gray-700">Status</label>
+                    <label for="edit-todo-status" class="block text-sm font-medium text-indigo-700">Status</label>
                     <select id="edit-todo-status" name="edit-todo-status" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                         <option value="ongoing">Ongoing</option>
                         <option selected value="completed">Completed</option>
@@ -269,7 +269,7 @@ function editForm(todoId) {
 
             editSyntax += `
             <div class="col-span-6 sm:col-span-3 lg:col-span-2">
-                <label for="edit-todo-due-date" class="block text-sm font-medium text-gray-700">Due Date</label>
+                <label for="edit-todo-due-date" class="block text-sm font-medium text-indigo-700">Due Date</label>
                 <input type="date" value="${(response.todo.due_date).substring(0, 10)}" name="edit-todo-due-date" id="edit-todo-due-date" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                 </div>
             </div>
@@ -391,6 +391,7 @@ function login () {
 
 function logout () {
     localStorage.removeItem('accesstoken')
+    signOut()
     $("#login-error").remove()
     $("#register-success").remove()
     $("#main-table-todo-body").empty()
@@ -486,4 +487,58 @@ function addNew () {
             console.log('MASUK addNew-ALWAYS')
         })
 
+}
+
+// ---------------- GOOGLE SIGN IN - OAUTH ----------------
+
+// GOOGLE OAUTH -- METHOD #1 -- NOT SAFE!
+// function onSignIn(googleUser) {
+//     var profile = googleUser.getBasicProfile();
+//     console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+//     console.log('Name: ' + profile.getName());
+//     console.log('Image URL: ' + profile.getImageUrl());
+//     console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+// }
+
+// GOOGLE OAUTH -- METHOD #2 -- SAFEST & RECOMMENDED!
+// mengambil access_token_google setiap kali sudah signed-in
+// access_token versi Google, yg harus kita kirim ke Back End
+function onSignIn(googleUser) {
+    let google_access_token = googleUser.getAuthResponse().id_token;
+    console.log('!!!!!  ', google_access_token, '  !!!!!')
+
+    // next: Verify token pakai AJAX
+    // di bawah ini proses yg sama dengan LOGIN manual di atas, tapi pakai data scope yg dikasih Google OAUTH tadi
+    $.ajax({
+        type: 'POST',
+        url: baseURL + '/users/googleLogin',
+        headers: {google_access_token}
+    })
+        .done(response => {
+            console.log('MASUK GoogleSIGNIN-DONE')
+            console.log(response)
+            localStorage.setItem('accesstoken', response.accesstoken)
+            checkAuth()
+        })
+        .fail(err => {
+            console.log('MASUK GoogleSIGNIN-ERROR')
+            console.log(err)
+            $("#login-error").remove()
+            $("#register-success").remove()
+            let loginError = `<div id="login-error" class="mt-2 text-center text-sm text-red-400">${err.responseJSON.message}</div>`
+            $("#login-sub-section").append(loginError)
+        })
+        .always(() => {
+            console.log('MASUK GoogleSIGNIN-ALWAYS')
+            $("#login-form").trigger('reset')
+        })
+}
+
+
+// ---------------- GOOGLE SIGN OUT - OAUTH ----------------
+function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+      console.log('User signed out.');
+    });
 }
