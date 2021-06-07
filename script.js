@@ -35,7 +35,7 @@ $(document).ready(function () {
         $("#form-add-todo").trigger("reset");
     });
     
-    $("#content-add-cancel").on("click", function () { 
+    $("#content-add-cancel").on("click", function () {
         $("#content-data-section").show();
         $("#content-add-section").hide();
         $("#btn-add-todo").show();
@@ -45,6 +45,7 @@ $(document).ready(function () {
         $("#content-data-section").show();
         $("#content-edit-section").hide();
         $("#btn-add-todo").show();
+        $("#form-edit-todo").trigger("reset");
     });
 
     $("#form-add-todo").submit(function (e) {
@@ -55,7 +56,13 @@ $(document).ready(function () {
     $("#form-register").submit(function (e) { 
         e.preventDefault();
         registerUser();
-    });
+    });    
+
+    $("#form-edit-todo").submit(function (e) {
+        e.preventDefault();
+        let todoId = $("#inp-todo-id").val();
+        putTodo(todoId);
+    }); 
 });
 
 function registerUser() {
@@ -237,13 +244,11 @@ function showEditTodo(id) {
         $("#title-edit").val(title);
         $("#due_date-edit").val(formattedDueDate);
         $("#description-edit").val(description);
-        $("#form-edit-todo").submit(function (e) {
-            e.preventDefault();
-            putTodo(id);            
-        });
+        $("#inp-todo-id").val(id);
     })
     .fail(error => {
         const { responseJSON } = error;
+        console.log("Error showEditTodo ", error);
         swal("Error", responseJSON.message, "error");
     });
 }
@@ -292,6 +297,7 @@ function putTodo(id) {
     })
     .fail(error => {
         const { responseJSON } = error;
+        console.log("error di put", error);
         swal("Error", responseJSON.message, "error");
     });
 }
