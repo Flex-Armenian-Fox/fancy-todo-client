@@ -150,7 +150,10 @@ const editForm = (id) =>  {
     $("#post-btn").hide()
     $("#edit-btn").show()
     $(`#form-type`).text("Edit Todos")
-    $(`#todo-form`).off().on('submit', () => {postEdit(id)})
+    $(`#todo-form`).off().on('submit', (e) => {
+        e.preventDefault()
+        postEdit(id)
+    })
     $.ajax({
         type: "GET",
         url: SERVER + `/todos/${id}`,
@@ -200,10 +203,15 @@ const registerForm = () =>{
     $(`#register-back`).show()
     $(`#reg-btn`).show()
     $(`#login-btn`).hide()
-    $(`#user-form`).off('submit').on('submit', () => {postRegister})
+    $(`#user-form`).off('submit').on('submit', (e) => {
+        console.log("test")
+        e.preventDefault()
+        postRegister()
+    })
 }
 
 const postRegister = () =>{
+    console.log()
     $.ajax({
         url: SERVER + "/users/register/",
         method: "POST",
