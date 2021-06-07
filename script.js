@@ -64,6 +64,21 @@ $(document).ready(function() {
 
 });
 
+function checkWeather() {
+    $.ajax({
+        type: 'GET',
+        url: baseURL + '/todos/weather',
+        headers: {accesstoken: localStorage.getItem('accesstoken')}
+    })
+        .done(response => {
+            console.log('MASUK checkWeather-DONE')
+            console.log(response)
+        })
+        .fail(err => {
+            console.log('MASUK checkWeather-ERROR')
+        })
+}
+
 function checkAuth() {
 
     if (localStorage.getItem('accesstoken')) { // SUDAH login
@@ -76,6 +91,7 @@ function checkAuth() {
         $("#create-todo-section").hide()
         $("#edit-todo-section").hide()
 
+        checkWeather()
         getTodos()
 
     } else if (!localStorage.getItem('accesstoken')) { // BELUM login
@@ -132,11 +148,11 @@ function getTodos () {
                             </td>
       
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                              <a href="#" id="todo-edit-${response[i].id}" onClick='editForm(${response[i].id})' class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                              <a href="#" id="todo-edit-${response[i].id}" onclick='editForm(${response[i].id})' class="text-indigo-600 hover:text-indigo-900">Edit</a>
                             </td>
       
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                              <a href="#" id="todo-done-${response[i].id}" class="text-green-600 hover:text-green-900">Mark Done</a>
+                              <a href="#" id="todo-done-${response[i].id}" onclick='changeStat(${response[i].id})' class="text-green-600 hover:text-green-900">Mark Done</a>
                             </td>`
                             break
 
@@ -151,11 +167,11 @@ function getTodos () {
                             </td>
       
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                              <a href="#" id="todo-edit-${response[i].id}" onClick='editForm(${response[i].id})' class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                              <a href="#" id="todo-edit-${response[i].id}" onclick='editForm(${response[i].id})' class="text-indigo-600 hover:text-indigo-900">Edit</a>
                             </td>
       
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                              <a href="#" id="todo-ongoing-${response[i].id}" class="text-yellow-500 hover:text-yellow-600">Mark Ongoing</a>
+                              <a href="#" id="todo-ongoing-${response[i].id}" onclick='changeStat(${response[i].id})' class="text-yellow-500 hover:text-yellow-600">Mark Ongoing</a>
                             </td>`
                             break
 
@@ -170,11 +186,11 @@ function getTodos () {
                             </td>
       
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                              <a href="#" id="todo-edit-${response[i].id}" onClick='editForm(${response[i].id})' class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                              <a href="#" id="todo-edit-${response[i].id}" onclick='editForm(${response[i].id})' class="text-indigo-600 hover:text-indigo-900">Edit</a>
                             </td>
       
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                              <a href="#" id="todo-done-${response[i].id}" class="text-green-600 hover:text-green-900">Mark Done</a>
+                              <a href="#" id="todo-done-${response[i].id}" onclick='changeStat(${response[i].id})' class="text-green-600 hover:text-green-900">Mark Done</a>
                             </td>`
                             break
                       }
@@ -432,7 +448,8 @@ function register () {
         })
 }
 
-function remove (todoId) {
+function remove(todoId) {
+    
     $.ajax({
         type: 'DELETE',
         url: baseURL + '/todos/' + todoId,
@@ -487,6 +504,42 @@ function addNew () {
             console.log('MASUK addNew-ALWAYS')
         })
 
+}
+
+function changeStat(todoId) {
+    let editStatus = ''
+
+    $.ajax({
+        type: 'GET',
+        url: baseURL + '/todos/' + todoId,
+        headers: {accesstoken: localStorage.getItem('accesstoken')}
+    })
+        .done(response => {
+            console.log(response)
+            if (response.todo.status === 'ongoing') {
+                editStatus = 'completed'
+            } else if (response.todo.status === 'completed') {
+                editStatus = 'ongoing'
+            }
+            return $.ajax({
+                type: 'PATCH',
+                url: baseURL + '/todos/' + todoId,
+                data: editStatus,
+                headers: {accesstoken: localStorage.getItem('accesstoken')}
+            })
+        })
+        .done(response => {
+            console.log('MASUK changeStat-DONE')
+            console.log(response)
+            checkAuth()
+        })
+        .fail(err => {
+            console.log('MASUK changeStat-ERROR')
+            console.log(err)
+        })
+        .always(() => {
+            console.log('MASUK changeStat-ALWAYS')
+        })
 }
 
 // ---------------- GOOGLE SIGN IN - OAUTH ----------------
