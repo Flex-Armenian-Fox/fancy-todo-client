@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="google-signin-client_id" content="982085477024-6n2tpq82aracq5krun8e705oj863h0q2.apps.googleusercontent.com">
+    <title>Fancy Todo List</title>
+<!-- 
+
+Timeless Template 
+
+http://www.templatemo.com/tm-517-timeless
+
+-->
+    <!-- load CSS -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400">
+    <!-- Google web font "Open Sans" -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- https://getbootstrap.com/ -->
+    <link rel="stylesheet" href="css/templatemo-style.css">
+    <!-- Templatemo style -->
+
+    
+</head>
+
+<body>
+    <button class='btn btn-danger float-right' onclick="logout()" id="logout-btn">Log Out</button>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <header class="text-center tm-site-header">
+                    <div class="tm-site-logo"></div>
+                    <h1 class="pl-4 tm-site-title">Todo List</h1>
+                </header>
+            </div>
+        </div>
+        <div id= "body">
+            <!-- USER FORM -->
+            <div class="panel panel-default" style="margin:auto">
+                <div class="panel-body" id="user-form">
+                    <div class="container-login text-center">
+                        <div class="row">
+                            <div class="col-xs-12" style="margin:auto">
+                                <div>
+                                    <h1 class="logo-name" id="user-form-title">LOGIN</h1>
+                                </div>
+                                <h3>Welcome to Fancy Todo List</h3>
+                                <p>start managing your activities</p>
+                                <p class="tm-text-red def-hid" id="user-err"></p>
+                                <form class="m-t" role="form" action="index.html">
+                                    <div class="form-group">
+                                        <input type="email" id="login-email" class="form-control" placeholder="Email" required="">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" id="login-password" class="form-control" placeholder="Password" required="">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary btn-block def-show" id="login-btn">Login</button>
+                                    <button type="submit" class="btn btn-primary btn-block def-hid" id="reg-btn">Register</button>
+                                    <a class="btn btn-secondary btn-block def-hid" id="register-back" onclick="auth()">Back</a>
+                                    <div id="not-register" class="def-show">
+                                        <p class="text-muted text-center"><small>Do not have an account?</small></p>
+                                        <a class="btn btn-default btn-block" onclick="registerForm()">Create an account</a>
+                                        <p class="text-muted text-center"><small>or log in with</small></p>
+                                        <div class="text-centered">
+                                            <div class="g-signin2" data-onsuccess="onSignIn" data-theme="light"
+                                            data-width="200" data-height="50">button</div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- LOGIN END-->
+            
+            <!-- Form -->
+            <div class="container tm-container-2 def-hid" id="todo-form-container">
+                <div class="col-lg-12">
+                    <h2 class="tm-welcome-text" id="form-type">Add Todos</h2>
+                </div>
+                <div class="tm-bg-dark tm-timeline-description" style="width:70%; margin:auto">
+                    <p class="tm-text-red def-hid" id="todo-err"></p>
+                    <form id="todo-form">
+                        <p>Title: </p>
+                        <input type="text" id="form-title" placeholder="title">
+                        <p>Description: </p>
+                        <input type="text" id="form-desc" placeholder="description">
+                        <p>Status:</p>
+                        <select id="form-stat" placeholder="status">
+                            <option value="Pending">Pending</option>
+                            <option value="Done">Done</option>
+                            <option value="Postponed">Postponed</option>
+                        </select>
+                        <p>Due Date:</p>
+                        <input type="date" id="form-date" value=""> <br><br>
+    
+                        <button type="submit" class="btn btn-primary btn-block def-show" id="post-btn">Post</button>
+                        <button type="submit" class="btn btn-primary btn-block def-hid" id="edit-btn">Edit</button>
+                        <button class="btn btn-secondary btn-block" onclick="auth()">Back</button>
+                    </form>
+                </div>
+            </div>
+    
+            <!--Todo Container-->
+            <div class="container tm-container-2 def-show" id="timeline-container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h2 class="tm-welcome-text">Todos:</h2>
+                        <button type="button" class="btn btn-primary def-show" id="add-todo-btn" onclick="getAdd()">Add Todos</button>
+                        <button type="button" class="btn btn-primary def-show float-right" id="pending-toggle" onclick="pendingToggle()">Show Pending</button> <br><br><br>
+                    </div>
+                </div>
+    
+                <!-- TODO LIST-->
+                <div class="row tm-section-mb">
+                    <div class="col-lg-12" id="todo-list">
+                    </div>
+                </div>
+    
+                <!--  row -->
+                <hr>
+                <hr>
+            </div>
+            <hr>
+        </div>
+        <!-- Footer -->
+        <footer class="row mt-5 mb-5">
+            <div class="col-lg-12">
+                <p class="text-center tm-text-gray tm-copyright-text mb-0">Copyright &copy;
+                    <span class="tm-current-year">2018</span> Your Company Name 
+                    
+                    | Design: <a href="http://templatemo.com/tm-517-timeless" class="tm-text-white">Timeless</a>
+                </p>
+            </div>
+        </footer>
+    </div>
+    <!-- .container -->
+
+    <script src="js/jquery.min.js"></script>
+    <!-- <script src="js/jquery-3.2.1.slim.min.js"></script> -->
+    <!-- <script src="js/templatemo-script.js"></script> -->
+    <script src="js/main.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+</body>
+</html>
