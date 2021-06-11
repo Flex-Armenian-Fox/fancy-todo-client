@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- CLIENT ID – GOOGLE OAUTH -->
+    <meta name="google-signin-client_id" content="132379342138-uosinsruk7rotvhf54f8sp6lao98bm4n.apps.googleusercontent.com">
+    <!-- ------------------------ -->
+
+    <link href="/tailwind.css" rel="stylesheet">
+    <title>Fancy2Do</title>
+</head>
+<body>
+    
+    <!-- <SECTION>  NAVIGATION BAR -->
+    <nav id="main-nav" class="bg-gray-800">
+        <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+        <div class="relative flex items-center justify-between h-16">
+            
+            <div class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
+            <div class="flex-shrink-0 flex items-center">
+                <img class=" lg:block h-8 w-auto" src="./assets/todo-main-logo2.png" alt="Fancy2Do">
+            </div>
+
+            <div id="nav-signedin" class="sm:block sm:ml-6">
+                <div class="flex space-x-4">
+                <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+                <a href="#" id="add-new-todo" class="bg-yellow-300 hover:bg-yellow-400 text-gray-700 px-3 py-2 rounded-md text-sm font-medium" aria-current="page">Add Todo</a>
+    
+                <a href="#" id="sign-out" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Sign Out</a>
+    
+                </div>
+            </div>
+
+            <div id="nav-landing" class="hidden sm:block sm:ml-6">
+                <!-- <div class="flex space-x-4">
+                <p class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium" aria-current="page">FANCY TODO</a>
+                </div> -->
+            </div>
+
+            </div>
+            <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+            </div>
+        </div>
+        </div>
+    </nav>
+  
+    <!-- <SECTION> WEATHER -->
+      <div class="bg-gray-300">
+        <div class="max-w-7xl mx-auto py-3 px-3 sm:px-6 lg:px-8">
+          <div class="flex items-center justify-between flex-wrap">
+            <div class="w-0 flex-1 flex items-center">
+
+              <p id="weather-info" class="ml-3 font-regular text-gray-700 truncate">
+                
+                
+              </p>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <!-- <SECTION>  SIGN-IN -->
+    <div id="login-section" class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-md w-full space-y-8">
+
+          <div id="login-sub-section">
+            <img class="mx-auto h-12 w-auto" src="./assets/to-do-logo-prpl-01.png" alt="Workflow">
+            <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
+              Sign in to your account
+            </h2>
+            <p class="mt-2 text-center text-sm text-gray-600">
+              Unregistered?
+              <a href="#" id="register-link" class="font-medium text-green-600 hover:text-green-500">
+                Click here to register!
+              </a>
+            </p>
+          </div>
+
+          <form id="login-form" class="mt-8 space-y-6" action="#" method="POST">
+            <input type="hidden" name="remember" value="true">
+            <div class="rounded-md shadow-sm -space-y-px">
+              <div>
+                <label for="login-email" class="sr-only">Email address</label>
+                <input id="login-email" name="email" type="email" autocomplete="email" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Email address">
+              </div>
+              <div>
+                <label for="login-password" class="sr-only">Password</label>
+                <input id="login-password" name="password" type="password" autocomplete="current-password" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Password">
+              </div>
+            </div>
+    
+      
+            <div>
+              <button type="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                <span class="absolute left-0 inset-y-0 flex items-center pl-3">
+                  <!-- Heroicon name: solid/lock-closed -->
+                  <svg class="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
+                  </svg>
+                </span>
+                Sign in
+              </button>
+            </div>
+          </form>
+
+          <div id="login-oauth-section">
+            
+            <p class="mt-2 text-center font-bold text-sm text-indigo-600">
+              Or sign in with one of these accounts:
+            </p>
+          </div>
+          <div class="flex items-center justify-center">
+            <div class="g-signin2" data-onsuccess="onSignIn"></div>
+          </div>
+          <!-- <a href="#" onclick="signOut();">Sign out</a> -->
+        </div>
+      </div>
+      
+    <!-- <SECTION>  REGISTER NEW USER -->
+    <div id="register-section" class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-md w-full space-y-8">
+
+          <div id="register-sub-section">
+            <img class="mx-auto h-12 w-auto" src="./assets/to-do-logo-01.png" alt="Workflow">
+            <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
+              Create an account
+            </h2>
+            <p class="mt-2 text-center text-sm text-gray-600">
+              Already registered?
+              <a href="#" id="login-link" class="font-medium text-indigo-600 hover:text-indigo-500">
+                Click here to login!
+              </a>
+            </p>
+          </div>
+
+          <form id="register-form" class="mt-8 space-y-6" action="#" method="POST">
+            <input type="hidden" name="remember" value="true">
+            <div class="rounded-md shadow-sm -space-y-px">
+              <div>
+                <label for="register-email" class="sr-only">Email address</label>
+                <input id="register-email" name="email" type="email" autocomplete="email" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Email address">
+              </div>
+              <div>
+                <label for="register-password" class="sr-only">Password</label>
+                <input id="register-password" name="password" type="password" autocomplete="current-password" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Password">
+              </div>
+            </div>
+    
+      
+            <div>
+              <button type="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                <span class="absolute left-0 inset-y-0 flex items-center pl-3">
+                  <!-- Heroicon name: solid/lock-closed -->
+                  <svg class="h-5 w-5 text-green-500 group-hover:text-green-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
+                  </svg>
+                </span>
+                Submit
+              </button>
+            </div>
+          </form>
+
+        </div>
+      </div>
+
+
+    <main>
+    <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+    <!-- Replace with your content -->
+
+
+    <!-- <SECTION>  TO DO LIST -->
+    <div id="main-todo-list" class="flex flex-col">
+        <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+        <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+            <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+
+            <table id="main-table-todo" class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-200">
+                <tr>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
+                    Title
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
+                    Description
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
+                    Status
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
+                    Due Date
+                    </th>
+                    <th colspan="3" scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
+                    Actions
+                    </th>
+                </tr>
+                </thead>
+
+                <tbody id="main-table-todo-body" class="bg-white divide-y divide-gray-200">
+
+                </tbody>
+            </table>
+
+            </div>
+        </div>
+        </div>
+    </div>
+    <!-- /End replace -->
+           
+
+    <!-- <SECTION> CREATE NEW TO DO FORM -->
+        <div id="create-todo-section">
+            <div class="hidden sm:block" aria-hidden="true">
+                <div class="py-5">
+                <div class="border-t border-gray-200"></div>
+                </div>
+            </div>
+            
+            <div class="mt-10 sm:mt-0">
+                <div class="md:grid md:grid-cols-3 md:gap-6">
+                <div class="md:col-span-1">
+                    <div id="create-todo-sidebar" class="px-4 sm:px-0">
+                      <h3 class="text-lg font-medium leading-6 text-indigo-700">To-do Details</h3>
+                      <p class="mt-1 text-sm text-gray-600">
+                          Your new todo will be displayed once you click 'Save'.
+                      </p>
+                    </div>
+                </div>
+                <div class="mt-5 md:mt-0 md:col-span-2">
+                    <form action="#" id="create-todo-form" method="POST">
+                    <div class="shadow overflow-hidden sm:rounded-md">
+                        <div class="px-4 py-5 bg-white sm:p-6">
+                        <div class="grid grid-cols-6 gap-6">
+                            <div class="col-span-7 sm:col-span-4">
+                            <label for="new-todo-title" class="block text-sm font-medium text-indigo-700">Title</label>
+                            <input type="text" name="new-todo-title" id="new-todo-title" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                            </div>
+            
+                            <div class="col-span-7 sm:col-span-4">
+                            <label for="new-todo-description" class="block text-sm font-medium text-indigo-700">Description</label>
+                            <input type="text" name="new-todo-description" id="new-todo-description" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                            </div>
+            
+                            <div class="col-span-6 sm:col-span-3">
+                            <label for="new-todo-status" class="block text-sm font-medium text-indigo-700">Status</label>
+                            <select id="new-todo-status" name="new-todo-status" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                <option value="ongoing">Ongoing</option>
+                                <option value="completed">Completed</option>
+                            </select>
+                            </div>
+            
+                            <div class="col-span-6 sm:col-span-3 lg:col-span-2">
+                            <label for="new-todo-due-date" class="block text-sm font-medium text-indigo-700">Due Date</label>
+                            <input type="date" name="new-todo-due-date" id="new-todo-due-date" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                            </div>
+                        </div>
+                        </div>
+
+                        <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
+                        <button type="button" id="add-todo-cancel" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-yellow-400 hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                            Cancel
+                        </button>
+                        <button type="submit" id="add-todo-submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                            Save
+                        </button>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+                </div>
+            </div>
+            
+            <div class="hidden sm:block" aria-hidden="true">
+                <div class="py-5">
+                <div class="border-t border-gray-200"></div>
+                </div>
+            </div>
+            
+        </div>
+
+
+    <!-- <SECTION> EDIT TO DO FORM -->
+        <div id="edit-todo-section">
+            
+            
+        </div>
+
+
+    </div>
+    </main>
+
+    <!-- !!!!! ALL SCRIPTS BELOW !!!!! -->
+
+    <!-- JQUERY SCRIPT -->
+    <script
+    src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+    crossorigin="anonymous"></script>
+
+    <!-- 3rd PARTY API - GOOGLE OAUTH - SCRIPT -->
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    
+    <!-- JAVASCRIPT SCRIPT -->
+    <script src="./script.js"></script>
+</body>
+</html>
